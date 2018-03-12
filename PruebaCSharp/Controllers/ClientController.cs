@@ -17,27 +17,24 @@ namespace PruebaCSharp.Controllers
         }
 
         // GET: api/Client/5
-        public Client Get(int id)
+        public Client Get(long id)
         {
-            Client client = new Client();
-
-            client.id = id;
-            client.name = "Pepe";
-            client.lastName = "suarez";
-            client.dni = "ddddd";
-            client.photo = "";
-            client.productList = "";
+            ClientPersistence clientPersistence = new ClientPersistence();
+            Client client = clientPersistence.getClient(id);
 
             return client;
         }
 
         // POST: api/Client
-        public void Post([FromBody]Client value)
+        public HttpResponseMessage Post([FromBody]Client value)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
             long id;
-            id = clientPersistence.SaveClient(value);
-
+            id = clientPersistence.saveClient(value);
+            value.id = id;
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+            response.Headers.Location = new Uri(Request.RequestUri, String.Format("Client/{0}", id));
+            return response;
 
         }
 

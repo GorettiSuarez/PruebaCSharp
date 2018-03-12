@@ -8,7 +8,7 @@ namespace PruebaCSharp.Models
     public class Client
     {
 
-        public int id { get; set; }
+        public long id { get; set; }
 
         public string name { get; set; }
 
