@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PruebaCSharp.Models;
 
 namespace PruebaCSharp.Controllers
 {
@@ -16,13 +17,22 @@ namespace PruebaCSharp.Controllers
         }
 
         // GET: api/Client/5
-        public string Get(int id)
+        public Client Get(int id)
         {
-            return "value";
+            Client client = new Client();
+
+            client.id = id;
+            client.name = "Pepe";
+            client.lastName = "suarez";
+            client.dni = "ddddd";
+            client.photo = "";
+            client.productList = "";
+
+            return client;
         }
 
         // POST: api/Client
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Client value)
         {
         }
 
