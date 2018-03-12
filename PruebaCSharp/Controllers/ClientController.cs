@@ -34,6 +34,11 @@ namespace PruebaCSharp.Controllers
         // POST: api/Client
         public void Post([FromBody]Client value)
         {
+            ClientPersistence clientPersistence = new ClientPersistence();
+            long id;
+            id = clientPersistence.SaveClient(value);
+
+
         }
 
         // PUT: api/Client/5
