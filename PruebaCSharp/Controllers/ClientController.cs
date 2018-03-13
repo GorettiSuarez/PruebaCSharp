@@ -43,8 +43,27 @@ namespace PruebaCSharp.Controllers
         }
 
         // PUT: api/Client/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(long id, [FromBody]Client client)
         {
+
+            ClientPersistence clientPersistence = new ClientPersistence();
+
+            bool recordExisted = false;
+            recordExisted = clientPersistence.updateClient(id,client);
+
+            HttpResponseMessage response;
+            //TO-DO: Try to put this in a separate method 
+            if (recordExisted)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NoContent); //Processed and return no content
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            return response;
+
         }
 
         // DELETE: api/Client/5
@@ -56,7 +75,7 @@ namespace PruebaCSharp.Controllers
             recordExisted = clientPersistence.deleteClient(id);
 
             HttpResponseMessage response;
-
+            //TO-DO: Try to put this in a separate method 
             if (recordExisted)
             {
                 response = Request.CreateResponse(HttpStatusCode.NoContent); //Processed and return no content

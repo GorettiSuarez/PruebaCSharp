@@ -106,6 +106,41 @@ namespace PruebaCSharp
         }
 
 
+
+
+        public bool updateClient(long ID, Client client)
+        {
+
+            MySql.Data.MySqlClient.MySqlDataReader mySQLreader = null;
+
+            string sql = "SELECT * FROM clients WHERE id = " + ID.ToString();
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+
+            mySQLreader = cmd.ExecuteReader();
+
+            if (mySQLreader.Read())
+            {
+
+                mySQLreader.Close();
+
+                //TO-DO: check if you have to handle some exception around here
+                sql = "UPDATE clients SET name='" + client.name + "', lastName='" + client.lastName + "', dni='" + client.dni + "', photo='" + client.photo + "', productList='" + client.productList + "' WHERE ID='" + ID.ToString() + "';";
+                cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+
+                cmd.ExecuteNonQuery();
+                return true;
+
+            }
+            else
+            {
+                mySQLreader.Close();
+                return false;
+            }
+
+        }
+
+
+
         public bool deleteClient(long ID)
         {
 
@@ -122,6 +157,7 @@ namespace PruebaCSharp
 
                 mySQLreader.Close();
 
+                //TO-DO: check if you have to handle some exception around here
                 sql = "DELETE FROM clients WHERE id = " + ID.ToString();
                 cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
 
