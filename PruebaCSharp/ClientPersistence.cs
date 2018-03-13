@@ -63,10 +63,12 @@ namespace PruebaCSharp
                 client.dni = mySQLreader.GetString(3);
                 client.photo = mySQLreader.GetString(4);
                 client.productList = mySQLreader.GetString(5);
+
+                mySQLreader.Close();
                 return client;
             }
             else {
-
+                mySQLreader.Close();
                 return null;
             }
 
@@ -98,7 +100,40 @@ namespace PruebaCSharp
                 clients.Add(client);
             }
 
+            mySQLreader.Close();
             return clients;
+
+        }
+
+
+        public bool deleteClient(long ID)
+        {
+
+            Client client = new Client();
+            MySql.Data.MySqlClient.MySqlDataReader mySQLreader = null;
+
+            string sql = "SELECT * FROM clients WHERE id = " + ID.ToString();
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+
+            mySQLreader = cmd.ExecuteReader();
+
+            if (mySQLreader.Read())
+            {
+
+                mySQLreader.Close();
+
+                sql = "DELETE FROM clients WHERE id = " + ID.ToString();
+                cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+
+                cmd.ExecuteNonQuery();
+                return true;
+
+            }
+            else
+            {
+                mySQLreader.Close();
+                return false;
+            }
 
         }
 

@@ -48,8 +48,24 @@ namespace PruebaCSharp.Controllers
         }
 
         // DELETE: api/Client/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            ClientPersistence clientPersistence = new ClientPersistence();
+
+            bool recordExisted = false;
+            recordExisted = clientPersistence.deleteClient(id);
+
+            HttpResponseMessage response;
+
+            if (recordExisted)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NoContent); //Processed and return no content
+            }
+            else {
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            return response;
         }
     }
 }
