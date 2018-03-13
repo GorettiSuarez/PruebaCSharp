@@ -30,12 +30,12 @@ namespace PruebaCSharp.Controllers
         }
 
         // POST: api/Client
-        public HttpResponseMessage Post([FromBody]Client value)
+        public HttpResponseMessage Post([FromBody]Client client)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
             long id;
-            id = clientPersistence.saveClient(value);
-            value.id = id;
+            id = clientPersistence.saveClient(client);
+            client.id = id;
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
             response.Headers.Location = new Uri(Request.RequestUri, String.Format("Client/{0}", id));
             return response;

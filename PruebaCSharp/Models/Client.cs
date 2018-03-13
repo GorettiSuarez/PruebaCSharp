@@ -16,7 +16,6 @@ namespace PruebaCSharp.Models
 
         public string dni { get; set; }
 
-        //TO-DO: check type of object for photo
         public string photo { get; set; }
 
         //TO-DO: check type of object for product list
