@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using PruebaCSharp.Models;
 using MySql.Data;
+using System.Collections;
 
 namespace PruebaCSharp
 {
@@ -54,6 +55,8 @@ namespace PruebaCSharp
 
             if (mySQLreader.Read())
             {
+
+                //TO-DO: Try to put this in a separate method 
                 client.id = mySQLreader.GetInt32(0);
                 client.name = mySQLreader.GetString(1);
                 client.lastName = mySQLreader.GetString(2);
@@ -66,6 +69,36 @@ namespace PruebaCSharp
 
                 return null;
             }
+
+        }
+
+
+        public ArrayList getClients()
+        {
+
+            ArrayList clients = new ArrayList();
+            MySql.Data.MySqlClient.MySqlDataReader mySQLreader = null;
+
+            string sql = "SELECT * FROM clients ;";
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+
+            mySQLreader = cmd.ExecuteReader();
+
+            while (mySQLreader.Read())
+            {
+                Client client = new Client();
+
+                //TO-DO: Try to put this in a separate method 
+                client.id = mySQLreader.GetInt32(0);
+                client.name = mySQLreader.GetString(1);
+                client.lastName = mySQLreader.GetString(2);
+                client.dni = mySQLreader.GetString(3);
+                client.photo = mySQLreader.GetString(4);
+                client.productList = mySQLreader.GetString(5);
+                clients.Add(client);
+            }
+
+            return clients;
 
         }
 

@@ -5,15 +5,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PruebaCSharp.Models;
+using System.Collections;
 
 namespace PruebaCSharp.Controllers
 {
     public class ClientController : ApiController
     {
         // GET: api/Client
-        public IEnumerable<string> Get()
+        public ArrayList Get()
         {
-            return new string[] { "value1", "value2" };
+            ClientPersistence clientPersistence = new ClientPersistence();
+            return clientPersistence.getClients();
+
+            //TO-DO: Implement paging if there's too many clients 
         }
 
         // GET: api/Client/5
