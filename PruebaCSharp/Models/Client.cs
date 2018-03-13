@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,9 +19,8 @@ namespace PruebaCSharp.Models
 
         public string photo { get; set; }
 
-        //TO-DO: check type of object for product list
-        public string productList { get; set; }
-
+        //Is a list of the product's ids that the client has bought. 
+        public ArrayList productList { get; set; }
 
     }
 }

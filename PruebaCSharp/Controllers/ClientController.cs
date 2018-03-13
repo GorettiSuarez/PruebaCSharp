@@ -15,7 +15,7 @@ namespace PruebaCSharp.Controllers
         public ArrayList Get()
         {
             ClientPersistence clientPersistence = new ClientPersistence();
-            return clientPersistence.getClients();
+            return clientPersistence.GetClients();
 
             //TO-DO: Implement paging if there's too many clients 
         }
@@ -24,7 +24,7 @@ namespace PruebaCSharp.Controllers
         public Client Get(long id)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
-            Client client = clientPersistence.getClient(id);
+            Client client = clientPersistence.GetClient(id);
 
             return client;
         }
@@ -34,7 +34,7 @@ namespace PruebaCSharp.Controllers
         {
             ClientPersistence clientPersistence = new ClientPersistence();
             long id;
-            id = clientPersistence.saveClient(client);
+            id = clientPersistence.SaveClient(client);
 
             client.id = id;
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
@@ -50,7 +50,7 @@ namespace PruebaCSharp.Controllers
             ClientPersistence clientPersistence = new ClientPersistence();
 
             bool recordExisted = false;
-            recordExisted = clientPersistence.updateClient(id,client);
+            recordExisted = clientPersistence.UpdateClient(id,client);
 
             HttpResponseMessage response;
             //TO-DO: Try to put this in a separate method 
@@ -73,7 +73,7 @@ namespace PruebaCSharp.Controllers
             ClientPersistence clientPersistence = new ClientPersistence();
 
             bool recordExisted = false;
-            recordExisted = clientPersistence.deleteClient(id);
+            recordExisted = clientPersistence.DeleteClient(id);
 
             HttpResponseMessage response;
             //TO-DO: Try to put this in a separate method 
