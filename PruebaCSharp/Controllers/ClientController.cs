@@ -35,6 +35,7 @@ namespace PruebaCSharp.Controllers
             ClientPersistence clientPersistence = new ClientPersistence();
             long id;
             id = clientPersistence.saveClient(client);
+
             client.id = id;
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
             response.Headers.Location = new Uri(Request.RequestUri, String.Format("Client/{0}", id));
