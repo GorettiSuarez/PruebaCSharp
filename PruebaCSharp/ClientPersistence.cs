@@ -13,7 +13,7 @@ namespace PruebaCSharp
     public class ClientPersistence
     {
 
-        private MySql.Data.MySqlClient.MySqlConnection connection;
+        private MySqlConnection connection;
 
         public ClientPersistence() {
 
@@ -41,16 +41,6 @@ namespace PruebaCSharp
             MySqlCommand cmd = new MySqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
             long id = cmd.LastInsertedId;
-
-            //We update the orders table inserting the orders made by the client
-
-            foreach (long idProduct in clientToSave.productList)
-            {
-                sql = "INSERT INTO orders (idclient, idproduct) VALUES ('" + id + "','" + idProduct + "');";
-                cmd = new MySqlCommand(sql, connection);
-                cmd.ExecuteNonQuery();
-            }
-            
             
             return id; 
 
@@ -59,10 +49,10 @@ namespace PruebaCSharp
         public Client GetClient(long idClient)
         {
 
-            MySql.Data.MySqlClient.MySqlDataReader mySQLreader = null;
+            MySqlDataReader mySQLreader = null;
 
             string sql = "SELECT * FROM clients WHERE id = " + idClient.ToString();
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
 
             mySQLreader = cmd.ExecuteReader();
 
@@ -166,8 +156,6 @@ namespace PruebaCSharp
                 cmd = new MySqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
 
-
-                //Do I have to update products adquired?
                 return true;
 
             }
