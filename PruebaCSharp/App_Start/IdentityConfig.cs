@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -7,8 +6,8 @@ using PruebaCSharp.Models;
 
 namespace PruebaCSharp
 {
-    // Configure el administrador de usuarios de aplicación que se usa en esta aplicación. UserManager se define en ASP.NET Identity y se usa en la aplicación.
 
+    //The user manager used in this app. UserManager is defined in ASP.NET Identity and it is used in the application. 
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -19,18 +18,17 @@ namespace PruebaCSharp
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
 
-            /**
-             * The ApplicationUserManager calls the constructor of the UserStore, which accepts a DbContext. Then it uses this connection to store the user's data
-             */
+
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<AppUsersDbContext>()));
 
-            // Configure la lógica de validación de nombres de usuario
+            
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-            // Configure la lógica de validación de contraseñas
+            
+
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,

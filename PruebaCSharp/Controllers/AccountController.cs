@@ -99,7 +99,7 @@ namespace PruebaCSharp.Controllers
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        private async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
@@ -178,7 +178,7 @@ namespace PruebaCSharp.Controllers
 
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]
-        public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
+        private async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -216,7 +216,7 @@ namespace PruebaCSharp.Controllers
 
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
-        public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
+        private async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -246,9 +246,9 @@ namespace PruebaCSharp.Controllers
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        /*[AllowAnonymous]*/
+        [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        private async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
             {
@@ -301,9 +301,9 @@ namespace PruebaCSharp.Controllers
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        /*[AllowAnonymous]*/
+        [AllowAnonymous]
         [Route("ExternalLogins")]
-        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
+        private IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
@@ -408,9 +408,7 @@ namespace PruebaCSharp.Controllers
         }
 
         
-        //[OverrideAuthorization]
-        //[Authorize(Roles = "Admin,Common")]
-        [AllowAnonymous]
+
         [Route("users/{id:guid}/roles")]  //An ID and an array of roles should be the request parameters
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser(string id, string[] rolesToAssign)
