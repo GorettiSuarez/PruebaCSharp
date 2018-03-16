@@ -77,5 +77,10 @@ You can get a token of a user with a GET request, with the URI /Token. The token
 2. Open the solution on Visual Studio 2017
 3. Open the MySQL database using, for example, MySQL Workbench 
 4. Run the solution
-5. Dowload and open POSTMAN to do the requests you want, or use a extension like Restles Client for Chrome. 
+5. A Window in a browser will appear, keep the URL. 
+6. Dowload and open POSTMAN to do the requests you want (https://www.blazemeter.com/blog/how-use-postman-manage-and-execute-your-apis), or use a extension like Restles Client for Chrome. 
+
+### Additional Information
+
+* Before making any client request, make sure you create a user, give it a admin role, and then get the token of the user. Once you have this token, make the client requests with OAuth 2.0 authentication, and give it the token. 
 
