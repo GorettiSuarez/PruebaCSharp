@@ -21,13 +21,13 @@ namespace PruebaCSharp
             connectionString = "server=127.0.0.1;port=3308;uid=root;pwd=lrairgmra1234;database=clientsdb";
             try
             {
-                connection = new MySql.Data.MySqlClient.MySqlConnection();
+                connection = new MySqlConnection();
                 connection.ConnectionString = connectionString;
                 connection.Open();
 
 
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex) {
+            catch (MySqlException ex) {
 
 
             }
@@ -36,7 +36,6 @@ namespace PruebaCSharp
 
         public long SaveClient(Client clientToSave) {
 
-            //First we insert the client and its personal data in the "clients" table
             string sql = "INSERT INTO clients (name, lastName, dni, photo) VALUES ('" + clientToSave.name + "','" + clientToSave.lastName + "','" + clientToSave.dni + "','" + clientToSave.photo +"');";
             MySqlCommand cmd = new MySqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
@@ -62,7 +61,7 @@ namespace PruebaCSharp
                 client = InitClient(mySQLreader);
                 mySQLreader.Close();
 
-                client.productList = getClientProducts(client.id);
+                client.productList = GetClientProducts(client.id);
                 return client;
             }
             else {
@@ -95,7 +94,7 @@ namespace PruebaCSharp
 
             foreach (Client client in clients)
             {
-                client.productList = getClientProducts(client.id);
+                client.productList = GetClientProducts(client.id);
             }
 
             return clients;
@@ -103,26 +102,26 @@ namespace PruebaCSharp
         }
 
         private Client InitClient(MySqlDataReader mySQLreader) {
-            Client client = new Client();
- 
-            client.id = mySQLreader.GetInt32(0);
-            client.name = mySQLreader.GetString(1);
-            client.lastName = mySQLreader.GetString(2);
-            client.dni = mySQLreader.GetString(3);
-            client.photo = mySQLreader.GetString(4);
-            //client.productList = mySQLreader.GetString(5);
+            Client client = new Client
+            {
+                id = mySQLreader.GetInt32(0),
+                name = mySQLreader.GetString(1),
+                lastName = mySQLreader.GetString(2),
+                dni = mySQLreader.GetString(3),
+                photo = mySQLreader.GetString(4)
+            };
 
             return client;
         }
 
-        private ArrayList getClientProducts(long idClient)
+        private ArrayList GetClientProducts(long idClient)
         {
 
             ArrayList products = new ArrayList();
-            MySql.Data.MySqlClient.MySqlDataReader mySQLreader = null;
+            MySqlDataReader mySQLreader = null;
 
             string sql = "SELECT idproduct FROM orders WHERE idclient = " + idClient.ToString();
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
 
             mySQLreader = cmd.ExecuteReader();
 
@@ -174,7 +173,7 @@ namespace PruebaCSharp
             MySqlDataReader mySQLreader = null;
 
             string sql = "SELECT * FROM clients WHERE id = " + idClient.ToString();
-            MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, connection);
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
 
             mySQLreader = cmd.ExecuteReader();
 
