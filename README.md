@@ -14,6 +14,13 @@ This API REST uses 2 MySql databases. One is for the clients, and it has 3 table
 
 And the other database used is for the users, and its tables are created by ASP.NET Identity using Entity Framework. 
 
+MySQL user used for this is: 
+
+uid: root
+password: lrairgmra1234
+
+And the connection port has to be 3308
+
 
 ## Clients
 
