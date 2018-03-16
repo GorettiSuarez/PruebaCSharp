@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections;
 
 namespace PruebaCSharp.Models
 {
@@ -19,7 +15,6 @@ namespace PruebaCSharp.Models
 
         public string photo { get; set; }
 
-        //Is a list of the product's ids that the client has bought. 
         public ArrayList productList { get; set; }
 
     }

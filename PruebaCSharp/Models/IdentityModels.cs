@@ -15,7 +15,7 @@ namespace PruebaCSharp.Models
 
         public async Task GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            /*return*/ await GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie);
+             await GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie);
         }
 
 
@@ -23,26 +23,10 @@ namespace PruebaCSharp.Models
         {
             // Tenga en cuenta que el valor de authenticationType debe coincidir con el definido en CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
-            // Agregar aquí notificaciones personalizadas de usuario
             return userIdentity;
         }
     }
 
-
-    /*
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-            Database.SetInitializer(new MySqlInitializer());
-        }
-        
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }*/
 
     public class AppUsersDbContext : IdentityDbContext<ApplicationUser>
     {

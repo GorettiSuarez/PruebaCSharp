@@ -7,20 +7,17 @@ using System.Collections;
 
 namespace PruebaCSharp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ClientController : ApiController
     {
         // GET: api/Client
-        [Authorize(Roles = "Admin")]
         public ArrayList Get()
         {
             ClientPersistence clientPersistence = new ClientPersistence();
             return clientPersistence.GetClients();
-
-            //TO-DO: Implement paging if there's too many clients 
         }
 
         // GET: api/Client/5
-        [Authorize(Roles = "Admin")]
         public Client Get(long id)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
@@ -30,12 +27,10 @@ namespace PruebaCSharp.Controllers
         }
 
         // POST: api/Client
-        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Post([FromBody]Client client)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
-            long id;
-            id = clientPersistence.SaveClient(client);
+            long id = clientPersistence.SaveClient(client);
 
             client.id = id;
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
@@ -44,33 +39,20 @@ namespace PruebaCSharp.Controllers
 
         }
 
-        // PUT: api/Client/5
-        [Authorize(Roles = "Admin")]
+        // PUT: api/Client/5 
         public HttpResponseMessage Put(long id, [FromBody]Client client)
         {
 
             ClientPersistence clientPersistence = new ClientPersistence();
 
             bool recordExisted = false;
-            recordExisted = clientPersistence.UpdateClient(id,client);
+            recordExisted = clientPersistence.UpdateClient(id, client);
 
-            HttpResponseMessage response;
-            //TO-DO: Try to put this in a separate method 
-            if (recordExisted)
-            {
-                response = Request.CreateResponse(HttpStatusCode.NoContent); //Processed and return no content
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            return response;
+            return GetResponse(recordExisted);
 
         }
 
         // DELETE: api/Client/5
-        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Delete(int id)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
@@ -78,13 +60,18 @@ namespace PruebaCSharp.Controllers
             bool recordExisted = false;
             recordExisted = clientPersistence.DeleteClient(id);
 
+            return GetResponse(recordExisted);
+        }
+
+        private HttpResponseMessage GetResponse(bool recordExisted)
+        {
             HttpResponseMessage response;
-            //TO-DO: Try to put this in a separate method 
             if (recordExisted)
             {
                 response = Request.CreateResponse(HttpStatusCode.NoContent); //Processed and return no content
             }
-            else {
+            else
+            {
                 response = Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
