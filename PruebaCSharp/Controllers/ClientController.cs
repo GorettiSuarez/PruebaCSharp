@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -12,6 +10,7 @@ namespace PruebaCSharp.Controllers
     public class ClientController : ApiController
     {
         // GET: api/Client
+        [Authorize(Roles = "Admin")]
         public ArrayList Get()
         {
             ClientPersistence clientPersistence = new ClientPersistence();
@@ -21,6 +20,7 @@ namespace PruebaCSharp.Controllers
         }
 
         // GET: api/Client/5
+        [Authorize(Roles = "Admin")]
         public Client Get(long id)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
@@ -30,6 +30,7 @@ namespace PruebaCSharp.Controllers
         }
 
         // POST: api/Client
+        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Post([FromBody]Client client)
         {
             ClientPersistence clientPersistence = new ClientPersistence();
@@ -44,6 +45,7 @@ namespace PruebaCSharp.Controllers
         }
 
         // PUT: api/Client/5
+        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Put(long id, [FromBody]Client client)
         {
 
@@ -68,6 +70,7 @@ namespace PruebaCSharp.Controllers
         }
 
         // DELETE: api/Client/5
+        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Delete(int id)
         {
             ClientPersistence clientPersistence = new ClientPersistence();

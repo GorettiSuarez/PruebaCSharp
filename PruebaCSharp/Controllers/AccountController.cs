@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -408,10 +407,10 @@ namespace PruebaCSharp.Controllers
             base.Dispose(disposing);
         }
 
-        //MMEEEEEEEEEEEE
         
-        [OverrideAuthorization]
-        [Authorize(Roles = "Admin,Common")]
+        //[OverrideAuthorization]
+        //[Authorize(Roles = "Admin,Common")]
+        [AllowAnonymous]
         [Route("users/{id:guid}/roles")]  //An ID and an array of roles should be the request parameters
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser(string id, string[] rolesToAssign)
